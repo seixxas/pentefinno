@@ -248,3 +248,37 @@ option:hover {
     text-align: center;
     /* Centraliza a imagem no slide */
 }
+
+
+.time-slot {
+    padding: 10px 15px;
+    border: 2px solid var(--color-primary); /* Use sua cor principal aqui */
+    background: transparent;
+    color: var(--color-primary);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    flex: 1 1 calc(33% - 10px); /* 3 colunas no mobile */
+    max-width: 100px;
+    text-align: center;
+}
+
+.time-slot:hover {
+    background: var(--color-primary);
+    color: white;
+}
+
+.time-slot.selected {
+    background: #28a745; /* Verde para selecionado */
+    color: white;
+    border-color: #28a745;
+}
+
+.time-slot.disabled {
+    background: #e9ecef;
+    color: #adb5bd;
+    border-color: #dee2e6;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
