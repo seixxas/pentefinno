@@ -1,4 +1,4 @@
-const WHATSAPP_NUMBER = "5511967519320"; 
+const WHATSAPP_NUMBER = "5511959296268"; 
 const WHATSAPP_API_URL = "https://wa.me/";
 
 let selectedService = ""; 
