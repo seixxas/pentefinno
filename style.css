@@ -1,0 +1,250 @@
+/* Definição das variáveis de cor */
+:root {
+    /* Fundo Principal: Bege Desbotado pelo Sol (#DDC99E) */
+    --color-background: #DDC99E;
+
+    /* Texto Principal / Foco: Sombra da Selva (#3C4A47) */
+    --color-primary: #3C4A47;
+
+    /* Destaque Principal / Botões / Navbar: Amarelo Filme Velho (#C6B060) */
+    --color-secondary: #C6B060;
+
+    /* Detalhamento / Linhas / Bordas: Terracota Enferrujado (#A85942) */
+    --color-border: #A85942;
+}
+
+/* Estilos Globais */
+body {
+    font-family: 'Playfair Display', sans-serif;
+    /* <-- NOVA FONTE */
+    background-color: var(--color-background);
+    color: var(--color-primary);
+    padding-top: 70px;
+    /* Espaço para a navbar fixa */
+
+}
+
+h2 {
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.section-padding {
+    padding: 60px 0;
+    /* Espaçamento padrão para as seções */
+}
+
+.section-bg {
+    background-color: var(--color-secondary);
+    /* Fundo da seção secundária */
+}
+
+hr {
+    color: var(--color-border);
+    opacity: 1;
+}
+
+/* Estilização da Navbar */
+#main-navbar {
+    background-color: var(--color-secondary);
+    /* Cor de fundo da navbar */
+    border-bottom: 3px solid var(--color-border);
+}
+
+#site-logo {
+    height: 100px;
+    /* Altura padrão para desktop. Ajuste este valor se precisar de uma logo maior. */
+    width: auto;
+    border-radius: 0.5rem;
+    /* Leve arredondamento para a logo */
+    border: 2px solid var(--color-primary);
+    /* Borda sutil usando a cor do texto */
+}
+
+/* Garante que a logo fique menor em dispositivos móveis */
+@media (max-width: 768px) {
+    #site-logo {
+        height: 70px;
+    }
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-primary);
+}
+
+.nav-link {
+    color: var(--color-primary) !important;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: #000000 !important;
+    /* Um preto sólido no hover */
+}
+
+/* Botão de Agendamento na Navbar */
+.agenda-btn {
+    /* Fundo será a cor de Destaque Principal (Amarelo Filme Velho) */
+    background-color: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+    /* Texto será o Sombra da Selva para alto contraste */
+    color: white !important;
+    margin-left: 10px;
+}
+
+.agenda-btn:hover {
+    opacity: 0.9;
+}
+
+/* Scrollspy: link ativo */
+.nav-link.active {
+    font-weight: bold;
+    border-bottom: 3px solid var(--color-primary);
+    /* Indicador visual de qual seção está ativa */
+}
+
+
+/* Estilização da Seção de Serviços */
+.service-card {
+    border: 1px solid var(--color-border);
+    background-color: var(--color-background);
+}
+
+.service-card .card-title {
+    color: var(--color-primary);
+    text-align: left;
+    border-bottom: 2px dashed var(--color-border);
+    padding-bottom: 10px;
+    margin-bottom: 0;
+}
+
+.list-group-item {
+    background-color: transparent !important;
+    border-color: var(--color-border);
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.price-tag {
+    font-weight: bold;
+    color: var(--color-primary);
+    margin-right: 0;
+    text-align: right;
+    min-width: 60px;
+}
+
+.select-service-btn {
+    background-color: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+}
+
+/* Estilização da Seção de Agendamento */
+#agendamento-form {
+    border: 1px solid var(--color-border);
+}
+
+#servico-selecionado-display {
+    background-color: var(--color-primary) !important;
+    color: var(--color-background) !important;
+}
+
+.form-select {
+    /* Aplica bordas arredondadas nos campos (input, select) */
+    border-radius: 0.75rem;
+    /* Valor de arredondamento médio */
+    border: 1px solid var(--color-border);
+    background-color: var(--color-background);
+    /* Fundo da caixa com a cor principal */
+    color: var(--color-primary);
+    /* Cor do texto */
+    padding: 0.5rem 1rem;
+    /* Padding interno para melhor visualização */
+
+    /* Remove o foco padrão azul do Bootstrap para manter a paleta de cores */
+    box-shadow: none !important;
+}
+
+.form-select:focus {
+    border-color: var(--color-primary);
+    /* Borda mais escura no foco */
+    outline: 0;
+}
+
+/* Opcional: Estilo para os inputs de texto e data também, para consistência */
+.form-control {
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-background);
+    color: var(--color-primary);
+    box-shadow: none !important;
+}
+
+.form-control:focus {
+    border-color: var(--color-primary);
+    outline: 0;
+}
+
+option {
+    font-family: Arial, sans-serif;
+    background-color: var(--color-background) !important;
+    color: var(--color-primary);
+}
+
+option:checked,
+option:hover {
+    background-color: var(--color-secondary) !important;
+}
+
+
+/* Ajuste Geral da Imagem */
+.carousel-img {
+    /* Reduz a altura máxima para aumentar a sensação de largura total */
+    max-height: 45vh; 
+    object-fit: contain; 
+    width: auto; 
+    margin: 0 auto; 
+    border-radius: 0.75rem; 
+}
+
+/* Garante que o CONTÊINER do carrossel tenha altura constante (CELULAR) */
+@media (max-width: 992px) {
+    
+    /* Aumenta um pouco a altura mínima para celular (pode ser necessário ajuste fino) */
+    #quemSomosCarousel {
+        min-height: 480px; 
+        max-height: 60vh; /* Altura um pouco menor para dar espaço à seta */
+    }
+
+    .carousel-inner {
+        height: 100%;
+        padding-left: 10px; 
+        padding-right: 10px;
+    }
+    
+    .carousel-img {
+        /* Reduz a altura máxima da imagem no celular */
+        max-height: 480px; 
+    }
+}
+
+/* Garante que as setas tenham cor e tamanho adequado, caso o default não esteja visível */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    /* Define o tamanho da seta novamente */
+    width: 2rem; 
+    height: 2rem;
+    
+    /* MÁGICA: Inverte as cores para preto puro e remove a estilização anterior de cor. */
+    /* Isso garante que a seta seja preta e visível contra o fundo. */
+    filter: invert(1) grayscale(100%); 
+}
+
+.carousel-item {
+    text-align: center;
+    /* Centraliza a imagem no slide */
+}
