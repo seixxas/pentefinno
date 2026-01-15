@@ -115,6 +115,11 @@ hr {
     background-color: var(--color-background);
 }
 
+.color-brown{
+    border: 1px solid black;
+    background-color: var(--color-border);
+}
+
 .service-card .card-title {
     color: var(--color-primary);
     text-align: left;
