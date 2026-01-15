@@ -2,6 +2,42 @@ const WHATSAPP_NUMBER = "5511959296268";
 const WHATSAPP_API_URL = "https://wa.me/";
 
 // --- NOVO: Lógica do Carrinho ---
+// 1. PEGA OS DADOS DO USUÁRIO QUE SALVAMOS NO LOGIN
+const usuarioLogado = JSON.parse(localStorage.getItem('usuarioPenteFino'));
+
+// 2. FUNÇÃO QUE EXECUTA ASSIM QUE A PÁGINA ABRE
+document.addEventListener('DOMContentLoaded', () => {
+    if (usuarioLogado) {
+        console.log("Usuário detectado:", usuarioLogado.name);
+
+        // Escondemos os campos que ele já preencheu no cadastro
+        // O id deve ser exatamente o que está no seu HTML
+        const camposParaEsconder = ['nome-completo', 'email-cliente', 'telefone'];
+        
+        camposParaEsconder.forEach(id => {
+            const campo = document.getElementById(id);
+            if (campo) {
+                // Esconde a div inteira que segura o campo (o label e o input)
+                campo.closest('.mb-3').classList.add('d-none');
+                
+                // Preenche o valor automaticamente para que o envio do form funcione
+                if (id === 'nome-completo') campo.value = usuarioLogado.name;
+                if (id === 'email-cliente') campo.value = usuarioLogado.email;
+                if (id === 'telefone') campo.value = usuarioLogado.phone;
+            }
+        });
+
+        // Opcional: Mudar o título do agendamento para algo mais pessoal
+        const tituloAgendamento = document.querySelector('#agendamento h2');
+        if(tituloAgendamento) tituloAgendamento.textContent = `🗓️ Agendar para ${usuarioLogado.name.split(' ')[0]}`;
+    }
+});
+
+// ... (Resto do seu código original: WHATSAPP_NUMBER, carrinho, etc.)
+
+
+
+
 let carrinho = [];
 
 // --- Mantendo seu Scroll Suave ---
