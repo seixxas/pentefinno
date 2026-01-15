@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     try {
         // Deleta agendamentos onde a data é menor que a data atual (Hoje)
         const result = await sql`
-            DELETE FROM agendamentos 
+            DELETE FROM appointments 
             WHERE date < CURRENT_DATE
         `;
 
