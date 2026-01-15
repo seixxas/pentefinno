@@ -97,29 +97,38 @@
                 }
 
                 container.innerHTML = dados.map(a => `
-                    <div class="col-12 col-md-6 col-lg-4" id="card-${a.id}">
-                        <div class="card card-agendamento h-100">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="badge badge-date">${formatarData(a.date)} às ${a.time}</span>
-                                    <small class="text-warning">${a.barber || 'Profissional'}</small>
-                                </div>
-                                <h5 class="card-title text-white mb-1">
-                                    <i class="bi bi-person-fill small"></i> ${a.email ? a.email.split('@')[0] : 'Cliente'}
-                                </h5>
-                                <p class="small text-secondary mb-3">
-                                    <i class="bi bi-scissors"></i> ${a.service || 'Serviço não informado'}
-                                </p>
-                                
-                                <div class="d-flex gap-2">
-                                    <button onclick="cancelar(${a.id})" class="btn btn-sm btn-cancel flex-grow-1">
-                                        <i class="bi bi-trash3"></i> Cancelar
-                                    </button>
-                                </div>
+                <div class="col-12 col-md-6 col-lg-4" id="card-${a.id}">
+                    <div class="card card-agendamento h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="badge badge-date">${formatarData(a.date)} às ${a.time}</span>
+                                <small class="text-warning">${a.barber || 'Profissional'}</small>
+                            </div>
+                            
+                            <h5 class="card-title text-white mb-1">
+                                <i class="bi bi-person-fill small"></i> ${a.name || 'Cliente'}
+                            </h5>
+                            
+                            <p class="mb-2" style="color: #25d366; font-weight: 500;">
+                                <i class="bi bi-whatsapp"></i> ${a.phone || 'Sem telefone'}
+                            </p>
+
+                            <p class="small text-secondary mb-3">
+                                <i class="bi bi-scissors"></i> ${a.service || 'Serviço não informado'}
+                            </p>
+                            
+                            <div class="d-flex gap-2">
+                                <a href="https://wa.me/${a.phone}" target="_blank" class="btn btn-sm btn-outline-success flex-grow-1">
+                                    <i class="bi bi-chat-dots"></i> Contatar
+                                </a>
+                                <button onclick="cancelar(${a.id})" class="btn btn-sm btn-cancel">
+                                    <i class="bi bi-trash3"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
-                `).join('');
+                </div>
+            `).join('');
             } catch (error) {
                 container.innerHTML = '<p class="text-danger text-center">Erro de conexão com o servidor.</p>';
             }

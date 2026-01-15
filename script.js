@@ -216,11 +216,14 @@ document.getElementById('agendamento-form').addEventListener('submit', async fun
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
+                name: nome,
                 email: email,
                 barber: barbeiro,
                 service: `${servicosTexto} (R$ ${totalFinanceiro})`,
                 date: data,
-                time: horario
+                time: horario,
+                phone: telefone
+
             })
         });
     } catch (error) {
