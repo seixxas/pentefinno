@@ -65,6 +65,14 @@ document.querySelectorAll('.select-service-btn').forEach(button => {
         carrinho.push({ nome: nomeServico, preco: precoValor });
 
         atualizarInterfaceCarrinho();
+
+        if (carrinho.length === 1) {
+            const carrinhoDiv = document.getElementById('carrinho-servicos');
+            carrinhoDiv.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' // Centraliza o carrinho na tela
+            });
+        }
     });
 });
 
