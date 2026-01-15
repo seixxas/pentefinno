@@ -1,11 +1,5 @@
 import { neon } from '@neondatabase/serverless';
 
-const pass = prompt("Digite a senha de acesso ao painel:");
-if (pass !== "gubielinha") {
-    alert("Acesso negado");
-    window.location.href = "index.html";
-}
-
 export default async function handler(req, res) {
     if (req.method !== 'GET') return res.status(405).end();
 

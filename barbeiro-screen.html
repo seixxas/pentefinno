@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +10,25 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="assets/logo.jpeg">
     <style>
-        body { background-color: #f4f7f6; }
-        .card-agendamento { border-left: 5px solid #0d6efd; transition: 0.3s; }
-        .card-agendamento:hover { transform: scale(1.01); }
-        .status-badge { font-size: 0.8rem; }
+        body {
+            background-color: #f4f7f6;
+        }
+
+        .card-agendamento {
+            border-left: 5px solid #0d6efd;
+            transition: 0.3s;
+        }
+
+        .card-agendamento:hover {
+            transform: scale(1.01);
+        }
+
+        .status-badge {
+            font-size: 0.8rem;
+        }
     </style>
 </head>
+
 <body>
 
     <nav class="navbar navbar-dark bg-dark mb-4">
@@ -46,20 +60,26 @@
     </div>
 
     <script>
+        const pass = prompt("Digite a senha de acesso ao painel:");
+        if (pass !== "gubielinha") {
+            alert("Acesso negado");
+            window.location.href = "index.html";
+        }
+
         let todosAgendamentos = [];
 
         async function carregarAgenda() {
             try {
                 const res = await fetch('/api/get-agendamentos');
                 todosAgendamentos = await res.json();
-                
+
                 // Define a data do filtro como "Hoje" por padrão
                 const hoje = new Date().toISOString().split('T')[0];
                 document.getElementById('filtro-data').value = hoje;
-                
+
                 renderizarAgenda(hoje);
             } catch (error) {
-                document.getElementById('lista-agendamentos').innerHTML = 
+                document.getElementById('lista-agendamentos').innerHTML =
                     '<div class="alert alert-danger">Erro ao carregar dados.</div>';
             }
         }
@@ -107,4 +127,5 @@
         carregarAgenda();
     </script>
 </body>
+
 </html>
