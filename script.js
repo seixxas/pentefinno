@@ -202,6 +202,7 @@ function checkFormStatus() {
 document.getElementById('agendamento-form').addEventListener('submit', async function (e) {
     e.preventDefault();
 
+    // Captura dos dados
     const nome = document.getElementById('nome-completo').value;
     const email = document.getElementById('email-cliente').value;
     const barbeiro = document.getElementById('barbeiro-selecionado').value;
@@ -211,52 +212,63 @@ document.getElementById('agendamento-form').addEventListener('submit', async fun
     const totalFinanceiro = carrinho.reduce((acc, s) => acc + s.preco, 0);
 
     let telefone = document.getElementById('telefone').value;
-    telefone = telefone.replace(/\D/g, '');
+    telefone = telefone.replace(/\D/g, ''); // Limpa caracteres não numéricos
 
-    if (carrinho.length === 0 || !nome || !horario) {
-        alert("Por favor, selecione serviços e horário.");
+    // Validação básica
+    if (carrinho.length === 0 || !nome || !horario || !telefone) {
+        alert("Por favor, preencha todos os campos e selecione os serviços.");
         return;
     }
 
-    // --- SALVANDO NO BANCO ---
+    // --- SALVANDO NO BANCO (com tratamento de erro para o usuário) ---
     try {
-        await fetch('/api/agendar', {
+        const response = await fetch('/api/agendar', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 name: nome,
                 email: email,
+                phone: telefone, // Salvando o telefone no banco
                 barber: barbeiro,
                 service: `${servicosTexto} (R$ ${totalFinanceiro})`,
                 date: data,
-                time: horario,
-                phone: telefone
-
+                time: horario
             })
         });
+
+        if (!response.ok) throw new Error('Falha ao salvar no banco');
+
     } catch (error) {
         console.error("Erro no banco:", error);
+        alert("Erro ao salvar agendamento, mas tentaremos abrir o WhatsApp.");
     }
 
-    // --- MENSAGEM WHATSAPP ---
+    // --- FORMATAÇÃO PARA WHATSAPP (Compatível com iPhone) ---
     const dateObj = new Date(data + 'T00:00:00');
-    const dataFormatada = dateObj.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    const dataFormatada = dateObj.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
 
-    const mensagem = `Olá! Meu nome é ${nome}. 
-    Agendamento solicitado:
-    *Serviços:* ${servicosTexto}
-    *Total:* R$ ${totalFinanceiro}
-    *Profissional:* ${barbeiro}
-    *Data:* ${dataFormatada} às ${horario}
-    *Telefone:* ${telefone}`;
+    // Mensagem estruturada
+    const mensagem = `Olá! Meu nome é ${nome}.%0A` +
+                     `*Agendamento solicitado:*%0A` +
+                     `*Serviços:* ${servicosTexto}%0A` +
+                     `*Total:* R$ ${totalFinanceiro}%0A` +
+                     `*Profissional:* ${barbeiro}%0A` +
+                     `*Data:* ${dataFormatada} às ${horario}%0A` +
+                     `*Telefone:* ${telefone}`;
 
-    const finalUrl = `${WHATSAPP_API_URL}${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensagem)}`;
+    // Link oficial da API (Mais estável que wa.me para iOS)
+    const finalUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${mensagem}`;
 
-    window.open(finalUrl, '_blank');
+    // No iPhone (iOS), o window.open dentro de uma função assíncrona é bloqueado.
+    // Usar window.location.href é a forma mais garantida de funcionar no Safari.
+    window.location.href = finalUrl;
 
-    // Reset total
+    // Reset da interface
     this.reset();
     carrinho = [];
     atualizarInterfaceCarrinho();
     inputOcultoHorario.value = "";
+    
+    // Esconde a seção de agendamento após sucesso
+    document.getElementById('agendamento').classList.add('d-none');
 });
