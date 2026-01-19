@@ -100,7 +100,7 @@ function atualizarInterfaceCarrinho() {
                     <strong>${item.nome}</strong>
                 </div>
                 <div>
-                    <span class="badge bg-light text-dark me-2 service-card">R$ ${item.preco} </span>
+                    <span class="badge bg-light me-2 service-card">R$ ${item.preco} </span>
                     <button class="btn btn-sm btn-outline-danger border-0" onclick="removerDoCarrinho(${index})">
                         <i class="bi bi-trash"></i>
                     </button>
