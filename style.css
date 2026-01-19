@@ -280,3 +280,25 @@ label {
 #localizacao{
     text-align: center;
 }
+
+/* =======================================================
+   BOTÃO MENU MOBILE (NAVBAR TOGGLER)
+   ======================================================= */
+
+/* Remove a borda transparente e coloca a cor do tema */
+.navbar-toggler {
+    border-color: var(--color-primary) !important;
+    background-color: rgba(212, 175, 55, 0.1) !important; /* Um fundo dourado bem suave */
+    padding: 4px 8px;
+}
+
+/* Garante que o ícone de dentro fique visível (Dourado) */
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(212, 175, 55, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+/* Efeito ao clicar no botão mobile */
+.navbar-toggler:focus {
+    box-shadow: 0 0 10px var(--color-primary) !important;
+    outline: none;
+}
