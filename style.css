@@ -1,289 +1,282 @@
-/* Definição das variáveis de cor */
+/* =======================================================
+   PALETA DE CORES E VARIÁVEIS (TEMA BLACK & GOLD)
+   ======================================================= */
 :root {
-    /* Fundo Principal: Bege Desbotado pelo Sol (#DDC99E) */
-    --color-background: #DDC99E;
-
-    /* Texto Principal / Foco: Sombra da Selva (#3C4A47) */
-    --color-primary: #3C4A47;
-
-    /* Destaque Principal / Botões / Navbar: Amarelo Filme Velho (#C6B060) */
-    --color-secondary: #C6B060;
-
-    /* Detalhamento / Linhas / Bordas: Terracota Enferrujado (#A85942) */
-    --color-border: #A85942;
+    --color-background: #0f0f0f;       /* Fundo Geral */
+    --color-card-bg: #1a1a1a;          /* Fundo dos Cards */
+    --color-primary: #d4af37;          /* Dourado Metálico */
+    --color-primary-hover: #b8962e;    /* Dourado mais escuro */
+    --color-text: #e0e0e0;             /* Texto Principal */
+    --color-text-dark: #121212;        /* Texto sobre fundo claro/dourado */
+    --color-border: #333333;           /* Bordas de divisões */
+    --color-whatsapp: #25d366;         /* Verde oficial WhatsApp */
 }
 
-/* Estilos Globais */
+/* =======================================================
+   ESTILOS GLOBAIS
+   ======================================================= */
 body {
-    font-family: 'Playfair Display', sans-serif;
-    /* <-- NOVA FONTE */
+    font-family: 'Playfair Display', serif;
     background-color: var(--color-background);
-    color: var(--color-primary);
-    padding-top: 70px;
-    /* Espaço para a navbar fixa */
-
+    color: var(--color-text);
+    padding-top: 90px; /* Espaço para a navbar fixa */
+    scroll-behavior: smooth;
 }
 
 h2 {
     color: var(--color-primary);
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     font-weight: bold;
     text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+hr {
+    color: var(--color-primary);
+    opacity: 0.2;
+    margin: 3rem 0;
 }
 
 .section-padding {
     padding: 60px 0;
-    /* Espaçamento padrão para as seções */
 }
 
-.section-bg {
-    background-color: var(--color-secondary);
-    /* Fundo da seção secundária */
-}
-
-hr {
-    color: var(--color-border);
-    opacity: 1;
-}
-
-/* Estilização da Navbar */
+/* =======================================================
+   NAVBAR (REESTILIZADA)
+   ======================================================= */
 #main-navbar {
-    background-color: var(--color-secondary);
-    /* Cor de fundo da navbar */
-    border-bottom: 3px solid var(--color-border);
+    background-color: rgba(15, 15, 15, 0.95);
+    border-bottom: 2px solid var(--color-primary);
+    backdrop-filter: blur(10px); /* Efeito de vidro no fundo */
 }
 
 #site-logo {
-    height: 100px;
-    /* Altura padrão para desktop. Ajuste este valor se precisar de uma logo maior. */
+    height: 80px;
     width: auto;
-    border-radius: 0.5rem;
-    /* Leve arredondamento para a logo */
-    border: 2px solid var(--color-primary);
-    /* Borda sutil usando a cor do texto */
-}
-
-/* Garante que a logo fique menor em dispositivos móveis */
-@media (max-width: 768px) {
-    #site-logo {
-        height: 70px;
-    }
-}
-
-.logo-text {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    border-radius: 35px;
 }
 
 .nav-link {
-    color: var(--color-primary) !important;
+    color: var(--color-text) !important;
     font-weight: 500;
-    transition: color 0.3s;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
 }
 
-.nav-link:hover {
-    color: #000000 !important;
-    /* Um preto sólido no hover */
+.nav-link:hover, .nav-link.active {
+    color: var(--color-primary) !important;
 }
 
-/* Botão de Agendamento na Navbar */
-.agenda-btn {
-    /* Fundo será a cor de Destaque Principal (Amarelo Filme Velho) */
-    background-color: var(--color-primary) !important;
-    border-color: var(--color-primary) !important;
-    /* Texto será o Sombra da Selva para alto contraste */
-    color: white !important;
-    margin-left: 10px;
-}
-
-.agenda-btn:hover {
-    opacity: 0.9;
-}
-
-/* Scrollspy: link ativo */
-.nav-link.active {
-    font-weight: bold;
-    border-bottom: 3px solid var(--color-primary);
-    /* Indicador visual de qual seção está ativa */
-}
-
-
-/* Estilização da Seção de Serviços */
+/* =======================================================
+   SERVIÇOS (CARDS)
+   ======================================================= */
 .service-card {
     border: 1px solid var(--color-border);
-    background-color: var(--color-background);
+    background-color: var(--color-card-bg) !important;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
-.color-brown{
-    border: 1px solid black;
-    background-color: var(--color-border);
+.service-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
 }
 
 .service-card .card-title {
     color: var(--color-primary);
-    text-align: left;
-    border-bottom: 2px dashed var(--color-border);
-    padding-bottom: 10px;
-    margin-bottom: 0;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 15px;
+    font-weight: bold;
 }
 
 .list-group-item {
     background-color: transparent !important;
-    border-color: var(--color-border);
-    padding-left: 0;
-    padding-right: 0;
+    border-color: var(--color-border) !important;
+    color: var(--color-text);
+    padding: 12px 0;
+    display: flex;
+    align-items: center;
 }
 
 .price-tag {
     font-weight: bold;
     color: var(--color-primary);
-    margin-right: 0;
-    text-align: right;
-    min-width: 60px;
 }
 
 .select-service-btn {
     background-color: var(--color-primary) !important;
-    border-color: var(--color-primary) !important;
+    border: none !important;
+    color: var(--color-text-dark) !important;
+    border-radius: 6px;
+    padding: 5px 10px;
 }
 
-/* Estilização da Seção de Agendamento */
-#agendamento-form {
-    border: 1px solid var(--color-border);
+/* =======================================================
+   CARRINHO E BOTÃO AGENDAMENTO
+   ======================================================= */
+#carrinho-servicos .card {
+    background-color: var(--color-card-bg);
+    border: 2px solid var(--color-primary);
+    border-radius: 15px;
 }
 
-#servico-selecionado-display {
+#carrinho-servicos .card-header {
     background-color: var(--color-primary) !important;
-    color: var(--color-background) !important;
+    color: var(--color-text-dark) !important;
+    font-weight: bold;
 }
 
-.form-select {
-    /* Aplica bordas arredondadas nos campos (input, select) */
-    border-radius: 0.75rem;
-    /* Valor de arredondamento médio */
-    border: 1px solid var(--color-border);
-    background-color: var(--color-background);
-    /* Fundo da caixa com a cor principal */
+#abrir-agendamento-btn {
+    background-color: var(--color-primary) !important;
+    border: none;
+    color: var(--color-text-dark) !important;
+    font-weight: bold;
+    padding: 12px 25px;
+    transition: 0.3s;
+}
+
+#abrir-agendamento-btn:hover {
+    background-color: var(--color-primary-hover) !important;
+    transform: scale(1.05);
+}
+
+/* =======================================================
+   FORMULÁRIO DE AGENDAMENTO
+   ======================================================= */
+#agendamento-form {
+    background-color: var(--color-card-bg) !important;
+    border: 1px solid var(--color-primary);
+    padding: 30px;
+    border-radius: 15px;
+}
+
+.form-control, .form-select {
+    background-color: #252525 !important;
+    border: 1px solid var(--color-border) !important;
+    color: white !important;
+    padding: 12px;
+    /* Evita zoom automático no iPhone (mínimo 16px) */
+    font-size: 16px !important;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.3) !important;
+}
+
+label {
     color: var(--color-primary);
-    /* Cor do texto */
-    padding: 0.5rem 1rem;
-    /* Padding interno para melhor visualização */
-
-    /* Remove o foco padrão azul do Bootstrap para manter a paleta de cores */
-    box-shadow: none !important;
+    margin-bottom: 8px;
+    font-weight: 500;
 }
 
-.form-select:focus {
-    border-color: var(--color-primary);
-    /* Borda mais escura no foco */
-    outline: 0;
-}
-
-/* Opcional: Estilo para os inputs de texto e data também, para consistência */
-.form-control {
-    border-radius: 0.75rem;
-    border: 1px solid var(--color-border);
-    background-color: var(--color-background);
-    color: var(--color-primary);
-    box-shadow: none !important;
-}
-
-.form-control:focus {
-    border-color: var(--color-primary);
-    outline: 0;
-}
-
-option {
-    font-family: Arial, sans-serif;
-    background-color: var(--color-background) !important;
-    color: var(--color-primary);
-}
-
-option:checked,
-option:hover {
-    background-color: var(--color-secondary) !important;
-}
-
-
-/* Ajuste Geral da Imagem */
-.carousel-img {
-    /* Reduz a altura máxima para aumentar a sensação de largura total */
-    max-height: 45vh; 
-    object-fit: contain; 
-    width: auto; 
-    margin: 0 auto; 
-    border-radius: 0.75rem; 
-}
-
-/* Garante que o CONTÊINER do carrossel tenha altura constante (CELULAR) */
-@media (max-width: 992px) {
-    
-    /* Aumenta um pouco a altura mínima para celular (pode ser necessário ajuste fino) */
-    #quemSomosCarousel {
-        min-height: 480px; 
-        max-height: 60vh; /* Altura um pouco menor para dar espaço à seta */
-    }
-
-    .carousel-inner {
-        height: 100%;
-        padding-left: 10px; 
-        padding-right: 10px;
-    }
-    
-    .carousel-img {
-        /* Reduz a altura máxima da imagem no celular */
-        max-height: 480px; 
-    }
-}
-
-/* Garante que as setas tenham cor e tamanho adequado, caso o default não esteja visível */
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    /* Define o tamanho da seta novamente */
-    width: 2rem; 
-    height: 2rem;
-    
-    /* MÁGICA: Inverte as cores para preto puro e remove a estilização anterior de cor. */
-    /* Isso garante que a seta seja preta e visível contra o fundo. */
-    filter: invert(1) grayscale(100%); 
-}
-
-.carousel-item {
-    text-align: center;
-    /* Centraliza a imagem no slide */
-}
-
-
+/* Slots de Horário */
 .time-slot {
     padding: 10px 15px;
-    border: 2px solid var(--color-primary); /* Use sua cor principal aqui */
-    background: transparent;
-    color: var(--color-primary);
+    border: 1px solid var(--color-border);
+    background: #252525;
+    color: var(--color-text);
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: 0.3s;
     font-weight: bold;
-    flex: 1 1 calc(33% - 10px); /* 3 colunas no mobile */
-    max-width: 100px;
+    flex: 1 1 calc(33% - 10px);
+    max-width: 90px;
     text-align: center;
 }
 
-.time-slot:hover {
+.time-slot:hover:not(.disabled) {
     background: var(--color-primary);
-    color: white;
+    color: var(--color-text-dark);
 }
 
 .time-slot.selected {
-    background: #28a745; /* Verde para selecionado */
-    color: white;
-    border-color: #28a745;
+    background: var(--color-whatsapp) !important;
+    color: white !important;
+    border-color: var(--color-whatsapp) !important;
 }
 
 .time-slot.disabled {
-    background: #e9ecef;
-    color: #adb5bd;
-    border-color: #dee2e6;
+    opacity: 0.2;
     cursor: not-allowed;
     text-decoration: line-through;
+}
+
+/* Botão Finalizar WhatsApp */
+#finalizar-agendamento-btn {
+    background-color: var(--color-whatsapp) !important;
+    border: none;
+    padding: 15px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: white !important;
+}
+
+#finalizar-agendamento-btn:disabled {
+    background-color: #555 !important;
+    opacity: 0.6;
+}
+
+/* =======================================================
+   CARROSSEL (QUEM SOMOS)
+   ======================================================= */
+#quemSomosCarousel {
+    max-width: 600px; /* Impede que fique gigante em telas de PC */
+    margin: 0 auto;   /* Centraliza o carrossel na página */
+}
+
+.carousel-inner {
+    border-radius: 15px;
+    border: 2px solid var(--color-primary);
+    overflow: hidden;
+    background-color: #000; /* Fundo preto para fotos que não ocuparem tudo */
+}
+
+.carousel-img {
+    width: 100%;
+    height: auto;       /* Deixa a altura ser definida pela imagem */
+    max-height: 450px;  /* Limite de altura para não empurrar o conteúdo */
+    object-fit: contain; /* Garante que a foto inteira apareça sem cortes */
+    display: block;
+}
+
+/* Setas do Carrossel */
+.carousel-control-prev-icon, 
+.carousel-control-next-icon {
+    width: 2rem;
+    height: 2rem;
+    
+}
+
+/* =======================================================
+   RESPONSIVIDADE (MOBILE)
+   ======================================================= */
+@media (max-width: 768px) {
+    body { padding-top: 85px; }
+    
+    #quemSomosCarousel {
+        max-width: 100%; /* No celular usa a largura toda disponível */
+    }
+
+    .carousel-img {
+        max-height: 350px; /* Um pouco menor no celular para caber na tela */
+    }
+
+    h2 { font-size: 1.4rem; }
+    
+    /* Ajuste para os slots de horário caberem melhor em telas pequenas */
+    .time-slot {
+        flex: 1 1 calc(33% - 5px);
+        font-size: 0.85rem;
+        padding: 8px 5px;
+    }
+}
+
+#localizacao{
+    text-align: center;
 }

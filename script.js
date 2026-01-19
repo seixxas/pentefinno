@@ -159,10 +159,22 @@ async function loadHorarios() {
     checkFormStatus();
 
     try {
-        const response = await fetch(`/api/agendar?date=${selectedDate}`);
-        const horariosOcupados = await response.json();
+        // Busca agendamentos de clientes E bloqueios do barbeiro simultaneamente
+        const [resAgendados, resBloqueios] = await Promise.all([
+            fetch(`/api/agendar?date=${selectedDate}`),
+            fetch(`/api/get-bloqueios?date=${selectedDate}`)
+        ]);
+
+        const horariosOcupados = await resAgendados.json();
+        const bloqueiosBarbeiro = await resBloqueios.json();
 
         container.innerHTML = ""; 
+
+        // Se o barbeiro marcou "DIA_TODO", não mostra nenhum horário
+        if (bloqueiosBarbeiro.includes("DIA_TODO")) {
+            container.innerHTML = "<p class='text-danger fw-bold'>Agenda fechada para este dia.</p>";
+            return;
+        }
 
         HORARIOS_DISPONIVEIS.forEach(horario => {
             const btn = document.createElement('button');
@@ -170,9 +182,15 @@ async function loadHorarios() {
             btn.className = "time-slot";
             btn.textContent = horario;
 
-            if (horariosOcupados.includes(horario)) {
+            // Verifica se está ocupado por cliente OU bloqueado pelo barbeiro
+            const estaOcupado = horariosOcupados.includes(horario);
+            const estaBloqueado = bloqueiosBarbeiro.includes(horario);
+
+            if (estaOcupado || estaBloqueado) {
                 btn.classList.add('disabled');
                 btn.disabled = true;
+                // Opcional: mudar o texto se for bloqueio manual
+                if (estaBloqueado) btn.title = "Horário bloqueado pelo barbeiro";
             } else {
                 btn.addEventListener('click', () => {
                     document.querySelectorAll('.time-slot').forEach(b => b.classList.remove('selected'));
