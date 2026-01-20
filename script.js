@@ -13,13 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // Escondemos os campos que ele já preencheu no cadastro
         // O id deve ser exatamente o que está no seu HTML
         const camposParaEsconder = ['nome-completo', 'email-cliente', 'telefone'];
-        
+
         camposParaEsconder.forEach(id => {
             const campo = document.getElementById(id);
             if (campo) {
                 // Esconde a div inteira que segura o campo (o label e o input)
                 campo.closest('.mb-3').classList.add('d-none');
-                
+
                 // Preenche o valor automaticamente para que o envio do form funcione
                 if (id === 'nome-completo') campo.value = usuarioLogado.name;
                 if (id === 'email-cliente') campo.value = usuarioLogado.email;
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Opcional: Mudar o título do agendamento para algo mais pessoal
         const tituloAgendamento = document.querySelector('#agendamento h2');
-        if(tituloAgendamento) tituloAgendamento.textContent = `🗓️ Agendar para ${usuarioLogado.name.split(' ')[0]}`;
+        if (tituloAgendamento) tituloAgendamento.textContent = `🗓️ Agendar para ${usuarioLogado.name.split(' ')[0]}`;
     }
 });
 
@@ -68,8 +68,8 @@ document.querySelectorAll('.select-service-btn').forEach(button => {
 
         if (carrinho.length === 1) {
             const carrinhoDiv = document.getElementById('carrinho-servicos');
-            carrinhoDiv.scrollIntoView({ 
-                behavior: 'smooth', 
+            carrinhoDiv.scrollIntoView({
+                behavior: 'smooth',
                 block: 'center' // Centraliza o carrinho na tela
             });
         }
@@ -121,7 +121,7 @@ window.removerDoCarrinho = (index) => {
 document.getElementById('abrir-agendamento-btn').addEventListener('click', () => {
     const agendamentoSection = document.getElementById('agendamento');
     const resumo = document.getElementById('servicos-resumo');
-    
+
     // Preenche o resumo no form
     const listaNomes = carrinho.map(s => s.nome).join(", ");
     const total = carrinho.reduce((acc, s) => acc + s.preco, 0);
@@ -129,7 +129,7 @@ document.getElementById('abrir-agendamento-btn').addEventListener('click', () =>
 
     agendamentoSection.classList.remove('d-none');
     agendamentoSection.scrollIntoView({ behavior: 'smooth' });
-    
+
     // Habilita o botão final apenas se houver horário
     checkFormStatus();
 });
@@ -143,9 +143,9 @@ const minDate = today.toISOString().split('T')[0];
 dataInput.setAttribute('min', minDate);
 
 const HORARIOS_DISPONIVEIS = [
-    "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
-    "13:00", "13:30", "14:00", "14:30", "15:00", "15:30",
-    "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00"
+    "09:00", "10:00", "11:00", "12:00",
+    "13:00", "14:00", "15:00",
+    "16:00", "17:00", "18:00", "19:00", "20:00"
 ];
 
 async function loadHorarios() {
@@ -155,7 +155,7 @@ async function loadHorarios() {
     if (!selectedDate) return;
 
     container.innerHTML = '<div class="spinner-border text-primary" role="status"></div>';
-    inputOcultoHorario.value = ""; 
+    inputOcultoHorario.value = "";
     checkFormStatus();
 
     try {
@@ -168,7 +168,7 @@ async function loadHorarios() {
         const horariosOcupados = await resAgendados.json();
         const bloqueiosBarbeiro = await resBloqueios.json();
 
-        container.innerHTML = ""; 
+        container.innerHTML = "";
 
         // Se o barbeiro marcou "DIA_TODO", não mostra nenhum horário
         if (bloqueiosBarbeiro.includes("DIA_TODO")) {
@@ -178,7 +178,7 @@ async function loadHorarios() {
 
         HORARIOS_DISPONIVEIS.forEach(horario => {
             const btn = document.createElement('button');
-            btn.type = "button"; 
+            btn.type = "button";
             btn.className = "time-slot";
             btn.textContent = horario;
 
@@ -267,12 +267,12 @@ document.getElementById('agendamento-form').addEventListener('submit', async fun
 
     // Mensagem estruturada
     const mensagem = `Olá! Meu nome é ${nome}.%0A` +
-                     `*Agendamento solicitado:*%0A` +
-                     `*Serviços:* ${servicosTexto}%0A` +
-                     `*Total:* R$ ${totalFinanceiro}%0A` +
-                     `*Profissional:* ${barbeiro}%0A` +
-                     `*Data:* ${dataFormatada} às ${horario}%0A` +
-                     `*Telefone:* ${telefone}`;
+        `*Agendamento solicitado:*%0A` +
+        `*Serviços:* ${servicosTexto}%0A` +
+        `*Total:* R$ ${totalFinanceiro}%0A` +
+        `*Profissional:* ${barbeiro}%0A` +
+        `*Data:* ${dataFormatada} às ${horario}%0A` +
+        `*Telefone:* ${telefone}`;
 
     // Link oficial da API (Mais estável que wa.me para iOS)
     const finalUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${mensagem}`;
@@ -286,7 +286,7 @@ document.getElementById('agendamento-form').addEventListener('submit', async fun
     carrinho = [];
     atualizarInterfaceCarrinho();
     inputOcultoHorario.value = "";
-    
+
     // Esconde a seção de agendamento após sucesso
     document.getElementById('agendamento').classList.add('d-none');
 });
