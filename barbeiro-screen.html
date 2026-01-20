@@ -19,6 +19,9 @@
                 <small class="text-muted" id="total-count">Carregando agendamentos...</small>
             </div>
             <div class="d-flex gap-2">
+                <button class="btn btn-info btn-sm text-white" onclick="abrirModalUsuarios()">
+                    <i class="bi bi-people-fill"></i> Clientes
+                </button>
                 <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modalBloqueio">
                     <i class="bi bi-calendar-x"></i> Bloquear
                 </button>
@@ -29,6 +32,33 @@
         </div>
 
         <div id="lista-agendamentos" class="row g-3"></div>
+    </div>
+
+    <div class="modal fade" id="modalUsuarios" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-dark text-white border-info">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title text-info"><i class="bi bi-people"></i> Clientes Cadastrados</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-dark table-hover">
+                            <thead>
+                                <tr class="text-info">
+                                    <th>Nome</th>
+                                    <th>WhatsApp</th>
+                                    <th>E-mail</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabela-usuarios-body">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="usuario-stats" class="text-end mt-2 small text-muted"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="modal fade" id="modalBloqueio" tabindex="-1" aria-hidden="true">
@@ -164,6 +194,44 @@
             if (!dataISO) return "--/--";
             const partes = dataISO.split('T')[0].split('-');
             return `${partes[2]}/${partes[1]}`;
+        }
+
+
+        const modalUsuarios = new bootstrap.Modal(document.getElementById('modalUsuarios'));
+
+        async function abrirModalUsuarios() {
+            const tbody = document.getElementById('tabela-usuarios-body');
+            const stats = document.getElementById('usuario-stats');
+
+            tbody.innerHTML = '<tr><td colspan="3" class="text-center"><div class="spinner-border text-info"></div></td></tr>';
+            modalUsuarios.show();
+
+            try {
+                const res = await fetch('/api/get-usuarios');
+                const usuarios = await res.json();
+
+                if (usuarios.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="3" class="text-center">Nenhum cliente cadastrado.</td></tr>';
+                    return;
+                }
+
+                stats.textContent = `Total: ${usuarios.length} clientes`;
+
+                tbody.innerHTML = usuarios.map(u => `
+            <tr>
+                <td>${u.name}</td>
+                <td>
+                    <a href="https://wa.me/${u.phone}" target="_blank" class="text-success text-decoration-none">
+                        <i class="bi bi-whatsapp"></i> ${u.phone}
+                    </a>
+                </td>
+                <td class="small text-secondary">${u.email}</td>
+            </tr>
+        `).join('');
+
+            } catch (error) {
+                tbody.innerHTML = '<tr><td colspan="3" class="text-danger">Erro ao carregar dados.</td></tr>';
+            }
         }
 
         carregarAgenda();
